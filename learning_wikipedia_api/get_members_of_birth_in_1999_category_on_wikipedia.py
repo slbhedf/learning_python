@@ -30,7 +30,7 @@ pages = [] # list of dictionaries
 while(True):
     result = s.get(url = wikipedia_ja, params=params)
     data = result.json()
-    pages += data["query"]["categorymembers"]
+    pages += data["query"]["categorymembers"] # list + list = list
     
     # continue when more results are available
     if data.get('continue'):
