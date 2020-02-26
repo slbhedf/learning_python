@@ -1,5 +1,5 @@
 '''
-get members of birth in 1999 Category on Wikipedia.
+get members of 1999 births Category on Wikipedia Japanese edition.
 In this case, the members are names of people born in 1999.
 
 I used wikipedia API.
