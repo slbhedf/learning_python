@@ -60,7 +60,7 @@ for year in range(year_from, year_until):
             if re.match(mmdd_regex, li.text ) and "、女優" in li.text: # li.text is a HTMLtag-removed text
                 row = re.sub(r'^', str(year)+"年" , li.text)
                 row = re.sub(r'、.*', "", row)
-                row = re.sub(r'\s*(\-|‐)\s*', ",", row)
+                row = re.sub(r'\s*(\-|‐)\s*', ",", row) # - and ‐ seem to be same but they are different. look at them carefully
                 f.write(row + "\n")
                 print(row)
 f.close()
