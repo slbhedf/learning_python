@@ -8,8 +8,9 @@ gather names of famous japanese actresses from pages on wikipedia like xxxx年�
 make a csv file whose each row consists of a birthday and name. 
 
 ### here is an exmple.
-2000年1月1日, ○○○○
+1990年1月1日,○○○○
 ......
+1999年12月31日,○○○○
 
 """
 
