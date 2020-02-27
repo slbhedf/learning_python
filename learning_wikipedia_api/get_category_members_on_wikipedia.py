@@ -63,7 +63,7 @@ for person in persons_born_in_1999:
 
 # print names in both two categories above.
 # It would take 10-20 seconds to print the result. Please be patient.
-#for person1 in persons_born_in_1990:
+#for person1 in persons_born_in_1999:
 #    for person2 in japenese_actresses:
 #        if person1 == person2:
 #            print(person1)
