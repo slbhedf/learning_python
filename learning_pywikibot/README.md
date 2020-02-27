@@ -6,7 +6,9 @@ https://www.mediawiki.org/wiki/Manual:Pywikibot
 
 Put user-config.py in the same directory.
 
+```
 ### my user-confing.py
 family = 'wikipedia'
 mylang = 'ja'
 usernames['wikipedia']['ja'] = u'YOUR USERNAME'
+```
