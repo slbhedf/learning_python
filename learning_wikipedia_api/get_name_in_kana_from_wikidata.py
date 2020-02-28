@@ -7,8 +7,8 @@ I used Wikidata API.
 Wikibase/API - MediaWiki
 https://www.mediawiki.org/wiki/Wikibase/API
 
-Q17686476 - SQID
-https://tools.wmflabs.org/sqid/#/view?id=Q17686476
+Rinka Kumada - Wikidata
+https://www.wikidata.org/wiki/Q17686476
 
 For example:
 https://www.wikidata.org/w/api.php?action=wbgetentities&sites=jawiki&titles=久間田琳加&languages=ja
