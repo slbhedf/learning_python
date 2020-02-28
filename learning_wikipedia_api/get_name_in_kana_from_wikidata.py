@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-get name in kana, and date of birth from https://www.wikidata.org
+get name in kana and date of birth from https://www.wikidata.org
 I used Wikidata API.
 
 Wikibase/API - MediaWiki
