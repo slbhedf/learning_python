@@ -12,7 +12,7 @@ output_file = 'data_of_famous_persons.txt' # write the result to this file
 fin = open(input_file, 'r', encoding='utf-8')
 fout = open(output_file, 'w', encoding='utf-8')
 
-titles = "" # 10-titles like "a|b|c|d|e|f|g|h|i|j"
+titles = "" # 10-titles string like "a|b|c|d|e|f|g|h|i|j"
 titles_list = [] # ["a|b|c|d|e|f|g|h|i|j", "k|l|m|n|o|p|q|r|s|t", ...]
 
 line_list = fin.readlines() # list of strings
@@ -25,7 +25,7 @@ for title in title_list:
     if not title == '':
         temp_list.append(title)
     if len(temp_list) >= 10:
-        titles_list.append(temp_list.copy()) # add 10-titles string
+        titles_list.append(temp_list.copy()) # add list of 10 titles to titles_list 
         temp_list.clear()
 if(len(temp_list) > 0):
     titles_list.append(temp_list.copy())
