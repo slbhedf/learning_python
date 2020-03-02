@@ -12,22 +12,25 @@ output_file = 'data_of_famous_persons.txt' # write the result to this file
 fin = open(input_file, 'r', encoding='utf-8')
 fout = open(output_file, 'w', encoding='utf-8')
 
-titles_list = [] # [["a","b","c","d","e","f","g","h","i","j"], ["k","l","m","n","o","p","q","r","s","t"], ...]
+titles_list = [] # ["a|b|c|d|e|f|g|h|i|j", "k|l|m|n|o|p|q|r|s|t", ...]
 
 line_list = fin.readlines() # list of strings
 lines = "".join(line_list) # string
 title_list = lines.split('\n') # ['a','b','c',...]
 
-# titles_list: list of list of 10 strings
+# titles_list: list of titles
 temp_list = [] # list of 10 titles
 for title in title_list:
     if not title == '':
         temp_list.append(title)
     if len(temp_list) >= 10:
-        titles_list.append(temp_list.copy()) # add list of 10 titles to titles_list 
+        titles = "|".join(temp_list)
+        titles_list.append(titles) # add titles to titles_list 
         temp_list.clear()
 if(len(temp_list) > 0):
-    titles_list.append(temp_list.copy())
+    titles = "|".join(temp_list)
+    titles_list.append(titles)
+    temp_list.clear()
 
 
 wikipedia_ja = "https://ja.wikipedia.org/w/api.php"
@@ -42,8 +45,7 @@ fout.write('{| class="sortable wikitable"\n')
 fout.write('! name !! name in kana !! date of birth !! wikidata\n')
     
 # get infomation on wikidata.org
-for temp_list in titles_list:
-    titles = "|".join(temp_list) # 10-titles string like "a|b|c|d|e|f|g|h|i|j"
+for titles in titles_list:
     params = {
     "action": "wbgetentities",
     "sites": "jawiki",
