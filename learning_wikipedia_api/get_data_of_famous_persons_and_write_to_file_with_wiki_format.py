@@ -17,7 +17,7 @@ titles_list = [] # ["a|b|c|d|e|f|g|h|i|j", "k|l|m|n|o|p|q|r|s|t", ...]
 
 line_list = fin.readlines() # list of strings
 lines = "".join(line_list) # string
-title_list = lines.split('\n') # list of strings(titles)
+title_list = lines.split('\n') # ['a','b','c',...]
 
 # list of 10-titles strings
 temp_list = [] # list of some titles
@@ -82,9 +82,9 @@ for temp_list in titles_list:
             birth = data['entities'][id]["claims"][date_of_birth_ID][0]["mainsnak"]["datavalue"]["value"]["time"]
             birth = birth[1:11] # yyyy-mm-dd
             if birth.endswith('01-01'):
-                birth += "?"
                 print(title + ": date of birth might be incorret")
                 print(wikidata_url + "\n")
+                birth = birth[:5] + "??-??"
             if birth.endswith('00-00'):
                 print(title + ": date of birth is incorret")
                 print(wikidata_url + "\n")
@@ -98,7 +98,6 @@ for temp_list in titles_list:
             title += "|"
         
         line = "|-\n|[[" + title + "]]||" + yomi + "||" + birth + "||[" + wikidata_url + "]\n"
-#        row = title + "," + yomi + "," + birth
         fout.write(line)
 
 fout.write('|}')
