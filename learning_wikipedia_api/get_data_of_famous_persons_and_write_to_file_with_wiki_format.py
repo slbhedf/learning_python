@@ -99,7 +99,7 @@ for temp_list in titles_list:
         
         line = "|-\n|[[" + title + "]]||" + yomi + "||" + birth + "||[" + wikidata_url + "]\n"
 #        row = title + "," + yomi + "," + birth
-        fout.write(line + "\n")
+        fout.write(line)
 
 fout.write('|}')
 fout.close()
