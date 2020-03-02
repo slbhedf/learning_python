@@ -40,7 +40,7 @@ date_of_birth_ID = "P569" # https://www.wikidata.org/wiki/Property:P569
 s = requests.Session()
 
 fout.write('{| class="sortable wikitable"\n')
-fout.write('! name !! name in kana !! date of birth !! wikidata')
+fout.write('! name !! name in kana !! date of birth !! wikidata\n')
     
 # get infomation on wikidata.org
 for temp_list in titles_list:
