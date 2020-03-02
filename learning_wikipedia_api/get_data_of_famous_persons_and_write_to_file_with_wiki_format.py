@@ -60,19 +60,22 @@ for temp_list in titles_list:
         title = ""
         yomi = ""
         birth = ""
+        wikidata_url = "https://www.wikidata.org/wiki/" + id
         
         # title
         try:
             title = data['entities'][id]["sitelinks"]["jawiki"]['title']
         except:
             print(id + ": title is not found")
+            print(wikidata_url + "\n")
             continue
         
         # name in kana
         try:
             yomi = data['entities'][id]["claims"][kana_ID][0]["mainsnak"]["datavalue"]["value"]
         except:
-            print(id + ": name in kana is not defined")
+            print(title + ": name in kana is not defined")
+            print(wikidata_url + "\n")
         
         # date of birth
         try:    
@@ -80,18 +83,21 @@ for temp_list in titles_list:
             birth = birth[1:11] # yyyy-mm-dd
             if birth.endswith('01-01'):
                 birth += "?"
-                print("date of birth might be incorret")
+                print(title + ": date of birth might be incorret")
+                print(wikidata_url + "\n")
             if birth.endswith('00-00'):
-                print("date of birth is incorret")
+                print(title + ": date of birth is incorret")
+                print(wikidata_url + "\n")
                 birth = birth[:5] + "??-??"
         except:
-            print(id + ": date of birth is not defined")
+            print(title + ": date of birth is not defined")
+            print(wikidata_url + "\n")
             
         # xxxx (xxx) -> xxxx (xxx)|  
         if title.endswith(')') or title.endswith('）'):
             title += "|"
         
-        line = "|-\n|[[" + title + "]]||" + yomi + "||" + birth + "||[https://www.wikidata.org/wiki/" + id + "]\n"
+        line = "|-\n|[[" + title + "]]||" + yomi + "||" + birth + "||[" + wikidata_url + "]\n"
 #        row = title + "," + yomi + "," + birth
         fout.write(line + "\n")
 
