@@ -19,7 +19,7 @@ lines = "".join(line_list) # string
 title_list = lines.split('\n') # ['a','b','c',...]
 
 # titles_list: list of list of 10 strings
-temp_list = [] # list of some titles
+temp_list = [] # list of 10 titles
 for title in title_list:
     if not title == '':
         temp_list.append(title)
