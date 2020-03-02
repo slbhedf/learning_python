@@ -12,7 +12,6 @@ output_file = 'data_of_famous_persons.txt' # write the result to this file
 fin = open(input_file, 'r', encoding='utf-8')
 fout = open(output_file, 'w', encoding='utf-8')
 
-titles = "" # 10-titles string like "a|b|c|d|e|f|g|h|i|j"
 titles_list = [] # [["a","b","c","d","e","f","g","h","i","j"], ["k","l","m","n","o","p","q","r","s","t"], ...]
 
 line_list = fin.readlines() # list of strings
@@ -44,7 +43,7 @@ fout.write('! name !! name in kana !! date of birth !! wikidata\n')
     
 # get infomation on wikidata.org
 for temp_list in titles_list:
-    titles = "|".join(temp_list) # 10-titles string
+    titles = "|".join(temp_list) # 10-titles string like "a|b|c|d|e|f|g|h|i|j"
     params = {
     "action": "wbgetentities",
     "sites": "jawiki",
