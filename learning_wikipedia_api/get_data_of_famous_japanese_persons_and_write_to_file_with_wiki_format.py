@@ -13,13 +13,13 @@ fin = open(input_file, 'r', encoding='utf-8')
 fout = open(output_file, 'w', encoding='utf-8')
 
 titles = "" # 10-titles string like "a|b|c|d|e|f|g|h|i|j"
-titles_list = [] # ["a|b|c|d|e|f|g|h|i|j", "k|l|m|n|o|p|q|r|s|t", ...]
+titles_list = [] # [["a","b","c","d","e","f","g","h","i","j"], ["k","l","m","n","o","p","q","r","s","t"], ...]
 
 line_list = fin.readlines() # list of strings
 lines = "".join(line_list) # string
 title_list = lines.split('\n') # ['a','b','c',...]
 
-# list of 10-titles strings
+# titles_list: list of list of 10 strings
 temp_list = [] # list of some titles
 for title in title_list:
     if not title == '':
