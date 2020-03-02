@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 '''
-get data of famous persons using wikidata API,
+get data of famous japanese persons using wikidata API,
 politicians, actors, athletes, and so on.
 and write them into a file with wiki table format.
 '''
