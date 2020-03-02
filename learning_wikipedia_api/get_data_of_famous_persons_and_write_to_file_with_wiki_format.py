@@ -1,0 +1,103 @@
+# -*- coding: utf-8 -*-
+'''
+get data of famous persons using wikidata API,
+politicians, actors, athletes, and so on.
+and write them into a file with wiki table format.
+'''
+
+import requests
+
+input_file = 'famous_persons.txt' # titles separated by '\n'
+output_file = 'data_of_famous_persons.txt' # write the result to this file
+fin = open(input_file, 'r', encoding='utf-8')
+fout = open(output_file, 'w', encoding='utf-8')
+
+titles = "" # 10-titles like "a|b|c|d|e|f|g|h|i|j"
+titles_list = [] # ["a|b|c|d|e|f|g|h|i|j", "k|l|m|n|o|p|q|r|s|t", ...]
+
+line_list = fin.readlines() # list of strings
+lines = "".join(line_list) # string
+title_list = lines.split('\n') # list of strings(titles)
+
+# list of 10-titles strings
+temp_list = [] # list of some titles
+for title in title_list:
+    if not title == '':
+        temp_list.append(title)
+    if len(temp_list) >= 10:
+        titles_list.append(temp_list.copy()) # add 10-titles string
+        temp_list.clear()
+if(len(temp_list) > 0):
+    titles_list.append(temp_list.copy())
+
+
+wikipedia_ja = "https://ja.wikipedia.org/w/api.php"
+wikidata_api = "https://www.wikidata.org/w/api.php"
+
+kana_ID = "P1814" # https://www.wikidata.org/wiki/Property:P1814
+date_of_birth_ID = "P569" # https://www.wikidata.org/wiki/Property:P569
+
+s = requests.Session()
+
+fout.write('{| class="sortable wikitable"\n')
+fout.write('! name !! name in kana !! date of birth !! wikidata')
+    
+# get infomation on wikidata.org
+for temp_list in titles_list:
+    titles = "|".join(temp_list) # 10-titles string
+    params = {
+    "action": "wbgetentities",
+    "sites": "jawiki",
+    "titles": titles,
+    "languages": "ja",
+    "format": "json"
+    }
+
+    result = s.get(url=wikidata_api, params=params)
+    data = result.json()
+    
+    for id in data['entities'].keys():
+        title = ""
+        yomi = ""
+        birth = ""
+        
+        # title
+        try:
+            title = data['entities'][id]["sitelinks"]["jawiki"]['title']
+        except:
+            print(id + ": title is not found")
+            continue
+        
+        # name in kana
+        try:
+            yomi = data['entities'][id]["claims"][kana_ID][0]["mainsnak"]["datavalue"]["value"]
+        except:
+            print(id + ": name in kana is not defined")
+        
+        # date of birth
+        try:    
+            birth = data['entities'][id]["claims"][date_of_birth_ID][0]["mainsnak"]["datavalue"]["value"]["time"]
+            birth = birth[1:11] # yyyy-mm-dd
+            if birth.endswith('01-01'):
+                birth += "?"
+                print("date of birth might be incorret")
+            if birth.endswith('00-00'):
+                print("date of birth is incorret")
+                birth = birth[:5] + "??-??"
+        except:
+            print(id + ": date of birth is not defined")
+            
+        # xxxx (xxx) -> xxxx (xxx)|  
+        if title.endswith(')') or title.endswith('）'):
+            title += "|"
+        
+        line = "|-\n|[[" + title + "]]||" + yomi + "||" + birth + "||[https://www.wikidata.org/wiki/" + id + "]\n"
+#        row = title + "," + yomi + "," + birth
+        fout.write(line + "\n")
+
+fout.write('|}')
+fout.close()
+
+print("")
+print("wrote to " + output_file)
+    
