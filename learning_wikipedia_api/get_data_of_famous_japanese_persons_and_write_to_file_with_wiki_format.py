@@ -7,6 +7,10 @@ and write them into a file with wiki table format.
 For exmple, this is data of 5 japanese prime miniters
 https://www.wikidata.org/w/api.php?action=wbgetentities&sites=jawiki&titles=安倍晋三|野田佳彦|菅直人|鳩山由紀夫|麻生太郎&languages=ja
 
+action=wbgetentities
+https://www.wikidata.org/w/api.php?action=help&modules=wbgetentities
+titles: Maximum number of values is 50 (500 for clients allowed higher limits).
+
 '''
 
 import requests
