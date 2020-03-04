@@ -32,7 +32,7 @@ for title in title_list:
     if not title == '':
         temp_list.append(title)
     if len(temp_list) >= 10:
-        titles = "|".join(temp_list)
+        titles = "|".join(temp_list) # titles string separated by |, like "a|b|c|d|e|f|g|h|i|j"
         titles_list.append(titles) # add titles to titles_list 
         temp_list.clear()
 if(len(temp_list) > 0):
