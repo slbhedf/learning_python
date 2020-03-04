@@ -11,7 +11,7 @@ https://www.wikidata.org/wiki/Q132345
 
 
 For example:
-https://www.wikidata.org/w/api.php?action=wbgetentities&sites=jawiki&titles=安倍晋三&languages=ja
+https://www.wikidata.org/w/api.php?action=wbgetentities&sites=jawiki&titles=安倍晋三|野田佳彦|菅直人|鳩山由紀夫|麻生太郎&languages=ja
 """
 
 import requests
