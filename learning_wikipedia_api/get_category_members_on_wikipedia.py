@@ -57,14 +57,5 @@ persons_born_in_1999 = get_category_members(category_name, wikipedia_ja)
 # print people born in 1999
 for person in persons_born_in_1999:
     print(person)
-
-#category_name = "Category:日本の女優"
-#japenese_actresses = get_category_members(category_name, wikipedia_ja)
-
-# print names in both two categories above.
-# It would take 10-20 seconds to print the result. Please be patient.
-#for person1 in persons_born_in_1999:
-#    for person2 in japenese_actresses:
-#        if person1 == person2:
-#            print(person1)
-
+    
+    
