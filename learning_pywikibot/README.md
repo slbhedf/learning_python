@@ -1,5 +1,6 @@
 if you have not installed pywikibot, please install it.
-- pip install pywikibot
+
+`pip install pywikibot`
 
 Manual:Pywikibot - MediaWiki
 https://www.mediawiki.org/wiki/Manual:Pywikibot
