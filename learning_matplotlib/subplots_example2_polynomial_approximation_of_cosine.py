@@ -1,4 +1,9 @@
 # -*- coding: utf-8 -*-
+'''
+Polynomial Approximation of cos(x) (degree=0,2,4,...,16) using Taylor Series.
+
+This is an example of subplots().
+'''
 
 import matplotlib.pyplot as plt
 import numpy as np
