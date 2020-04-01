@@ -66,5 +66,5 @@ ax9.grid(True)
 ax9.set_title('y=x+cos(3*x)')
 
 plt.tight_layout()
-fig.savefig('subplot_example_3x3.svg')
+fig.savefig('subplot_example1_3x3.svg')
 plt.show()
