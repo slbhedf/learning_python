@@ -14,3 +14,5 @@ ax.bar(alphabet, height)
 ax.plot(height, 'r')
 
 fig.savefig('bar_graph_a2z.svg')
+
+plt.show()
