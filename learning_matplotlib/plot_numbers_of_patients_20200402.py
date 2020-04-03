@@ -4,12 +4,12 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 '''
-plot the number of coronavirus patients in tokyo.
+plot the numbers of coronavirus patients in tokyo.
 
 download the csvfile
 https://catalog.data.metro.tokyo.lg.jp/dataset/t000010d0000000068
 
-I also predit the number of patients in a bad cases until 2020-04-16.
+I also predit the numbers of patients in a bad case until 2020-04-16.
 '''
 
 name = '130001_tokyo_covid19_patients.csv'
