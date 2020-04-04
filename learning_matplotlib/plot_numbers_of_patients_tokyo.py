@@ -1,16 +1,17 @@
-import pandas as pd
-from datetime import timedelta
-import matplotlib.pyplot as plt
-import numpy as np
-
 '''
 plot the numbers of coronavirus patients in tokyo.
-
 download the csvfile
-https://catalog.data.metro.tokyo.lg.jp/dataset/t000010d0000000068
 
-I also predit the numbers of patients in a bad case until 2020-04-16.
+URL: https://stopcovid19.metro.tokyo.lg.jp/data/130001_tokyo_covid19_patients.csv
+
+I also predit the numbers of patients in a bad case.
 '''
+
+import pandas as pd
+from datetime import timedelta, datetime
+import matplotlib.pyplot as plt
+import numpy as np
+from scipy.optimize import curve_fit
 
 name = '130001_tokyo_covid19_patients.csv'
 data = pd.read_csv(name, parse_dates=['公表_年月日'])
@@ -40,27 +41,30 @@ while(d <= date_list[len(date_list)-1]):
     x.append(d.isoformat()[:10])
     y.append(n)
     d = d + timedelta(days=1)
-    
-#print(x)
-#print(y)
 
 fig, ax = plt.subplots(figsize=(10,10))
 ax.plot(x, y, label='observed')
 ax.grid(True)
 ax.set_title('coronavirus patients')
 
-xticks = ['2020-02-01', '2020-03-01', '2020-04-01']
-xlabels = ['2020-02', '2020-03', '2020-04']
 
+# predict
+c  = curve_fit(lambda t,a,b: a*(b**t),  np.arange(0,len(y)),  y)
+x2 = np.arange(0, len(y)+30)
+y2 = c[0][0] * (c[0][1] ** x2) 
+ax.plot(x2, y2, label='bad case', lw=0.5)
+
+# xtick labels
+m2 = datetime(2020,2,1) - date_list[0]
+m3 = datetime(2020,3,1) - date_list[0]
+m4 = datetime(2020,4,1) - date_list[0]
+m5 = datetime(2020,5,1) - date_list[0]
+
+xticks = [m2.days, m3.days, m4.days, m5.days]
+xlabels = ['2020-02', '2020-03', '2020-04', '2020-05']
 ax.set_xticks(ticks=xticks)
 ax.set_xticklabels(xlabels)
 
-x = np.arange(0, len(y)+14)
-y = (1.1 ** x) 
-ax.plot(x, y, label='bad case until 2020-04-16')
-
 ax.legend(loc='best')
 fig.savefig('coronavirus_patients_2020-04-02.svg')
-
 plt.show()
-
