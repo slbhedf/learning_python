@@ -49,10 +49,12 @@ ax.set_title('coronavirus patients')
 
 
 # predict
-c  = curve_fit(lambda t,a,b: a*(b**t),  np.arange(0,len(y)),  y)
+#c  = curve_fit(lambda t,c1,c2,c3: c1*(c2**t)+c3,  np.arange(len(y)-10,len(y)),  y[-10:])
+c  = curve_fit(lambda t,c1,c2,c3: c1*(c2**t)+c3,  np.arange(0, len(y)),  y)
 x2 = np.arange(0, len(y)+30)
-y2 = c[0][0] * (c[0][1] ** x2) 
+y2 = c[0][0] * (c[0][1] ** x2) + c[0][2]
 ax.plot(x2, y2, label='bad case', lw=0.5)
+print("y={}*({}**x)+{}".format(c[0][0], c[0][1], c[0][2]))
 
 # xtick labels
 m2 = datetime(2020,2,1) - date_list[0]
@@ -66,5 +68,8 @@ ax.set_xticks(ticks=xticks)
 ax.set_xticklabels(xlabels)
 
 ax.legend(loc='best')
-fig.savefig('coronavirus_patients_2020-04-02.svg')
+plt.xticks(rotation=70)
+plt.tight_layout()
+
+fig.savefig('svg/coronavirus_patients_tokyo.svg')
 plt.show()
