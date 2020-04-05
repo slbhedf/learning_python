@@ -38,11 +38,11 @@ y = []
 n = 0
 while(d <= date_list[len(date_list)-1]):
     n += dict.get(d, 0)
-    x.append(d.isoformat()[:10])
+    x.append(d.strftime("%d %b"))
     y.append(n)
     d = d + timedelta(days=1)
 
-fig, ax = plt.subplots(figsize=(10,10))
+fig, ax = plt.subplots(figsize=(20,20))
 ax.plot(x, y, label='observed')
 ax.grid(True)
 ax.set_title('coronavirus patients')
@@ -57,13 +57,17 @@ ax.plot(x2, y2, label='bad case', lw=0.5)
 print("y={}*({}**x)+{}".format(c[0][0], c[0][1], c[0][2]))
 
 # xtick labels
-m2 = datetime(2020,2,1) - date_list[0]
-m3 = datetime(2020,3,1) - date_list[0]
-m4 = datetime(2020,4,1) - date_list[0]
-m5 = datetime(2020,5,1) - date_list[0]
+d = date_list[0]
+date_until = datetime(2020, 5, 4)
+xticks = []
+xlabels = []
+i = 0
+while(d< date_until):
+    xticks.append(i)
+    xlabels.append(d.strftime("%d %b"))
+    d = d + timedelta(days=1)
+    i += 1
 
-xticks = [m2.days, m3.days, m4.days, m5.days]
-xlabels = ['2020-02', '2020-03', '2020-04', '2020-05']
 ax.set_xticks(ticks=xticks)
 ax.set_xticklabels(xlabels)
 
