@@ -56,7 +56,8 @@ ax.set_ylim(0.90, 20000)
 
 df_all = pd.read_csv('full_data.csv', parse_dates=['date'])
 
-countries = ['Italy', 'Spain','United Kingdom', 'Germany', 'France', 'United States']
+countries = ['Italy', 'Spain','United Kingdom', 'Germany', 'France', 'United States', 'China', 'Japan', 'Iran', 'Netherlands', 'Belgium']
+countries.sort()
 df_dict = {}
 
 for country in countries:
