@@ -48,7 +48,7 @@ def set_logscale_yticks(ax):
 ################## 
 fig = plt.figure(figsize=(20,20))
 ax = fig.subplots()
-set_datelabels(datetime(2020,2,10), datetime(2020,4,8), ax)
+set_datelabels(datetime(2020,1,10), datetime(2020,4,8), ax)
 ax.set_yscale('log')
 set_logscale_yticks(ax)
 ax.set_ylim(0.90, 20000)
