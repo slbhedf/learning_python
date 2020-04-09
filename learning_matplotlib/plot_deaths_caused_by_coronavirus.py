@@ -87,6 +87,6 @@ for country in df_dict.keys():
     y = list(df['total_deaths'])
     ax.plot(x, y, label=country)
 
-ax.legend(loc='lower right',prop={'size': 20}, frameon=True)
+ax.legend(loc='best',prop={'size': 30}, frameon=True)
 
-fig.savefig('deaths_caused_by_coronavirus.png')    
+fig.savefig('deaths_caused_by_coronavirus.svg')    
