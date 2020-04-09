@@ -73,19 +73,22 @@ df_all = pd.read_csv('full_data.csv', parse_dates=['date'])
 
 countries = ['Italy', 'Spain','United Kingdom', 'Germany', 'France', 'United States', 'China', 'Iran']
 #countries = ['Italy', 'Spain','United Kingdom', 'Germany', 'France', 'United States', 'China', 'Japan', 'Iran', 'Netherlands', 'Belgium']
+markerlist = ['*-', 'o-', 'X-', 'D-', 'H-', 's-', 'P-', 'v-']
+markerdict = {}
 countries.sort()
 df_dict = {}
 
 for country in countries:
     df = df_all.loc[lambda df: df['location'] == country, :]
     df_dict[country] = df
+    markerdict[country] = markerlist.pop()
 
 for country in df_dict.keys():
     df = df_dict[country]
     df = df.loc[lambda df: df['total_deaths'] > 0, :]
     x = dates_to_ints(list(df['date']), ax)
     y = list(df['total_deaths'])
-    ax.plot(x, y, label=country)
+    ax.plot(x, y, markerdict[country], label=country)
 
 ax.legend(loc='best',prop={'size': 30}, frameon=True)
 
