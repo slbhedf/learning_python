@@ -41,10 +41,11 @@ def set_yscale_log_example():
                 # xaxis scale is linear
                 ax[i][j].set_xscale('linear')
                 ax[i][j].set_xlabel('linear scale')
-                # xaxis scale is linear
+                # yaxis scale is linear
                 ax[i][j].set_yscale('linear')
                 ax[i][j].set_ylabel('linear scale')
             elif j == 1:
+                # xaxis scale is linear, yaxis scale is log
                 ax[i][j].set_title('xaxis scale is linear, yaxis scale is log')
                 # xaxis scale is linear
                 ax[i][j].set_xscale('linear')
