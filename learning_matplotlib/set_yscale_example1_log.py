@@ -3,100 +3,67 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-def set_yscale_log_example_polynomial1():    
-    fig = plt.figure()
-    ax = fig.subplots()
+def set_yscale_log_example():
+    nrow = 2
+    ncol = 3
+    width = 12
+    height = 8
+    fig = plt.figure(figsize=(width, height))
+    ax = fig.subplots(nrow, ncol)
     x = np.arange(0.1, 10, 0.05)
-    ylist = []
-    ylist.append({'array':x, 'label': 'y=x' }) 
-    ylist.append({'array': x * x, 'label': 'y=x*x'})
-    ylist.append({'array': x ** 3, 'label': 'y=x*x*x'})
     
-    for y in ylist:
-        ax.plot(x, y['array'], label=y['label'])
-        
-    ax.set_title('xaxis scale is linear, yaxis scale is log')
+    polynomials = []
+    polynomials.append({'array':x, 'label': 'y=x' }) 
+    polynomials.append({'array': x * x, 'label': 'y=x*x'})
+    polynomials.append({'array': x ** 3, 'label': 'y=x*x*x'})
     
-    ax.set_xscale('linear')
-    ax.set_xlabel('linear scale')
-    ax.set_yscale('log')
-    ax.set_ylabel('log scale')
+    exponentials = []
+    exponentials.append({'array': np.exp2(x), 'label': 'y=2^x' })
+    exponentials.append({'array': np.exp(x), 'label': 'y=e^x'})
     
-    ax.legend()
-    fig.savefig('set_yscale_log_example_p1.svg')
+    imax = ax.shape[0]
+    jmax = ax.shape[1]
+    for i in range(imax):
+        for j in range(jmax):
+            
+            if i == 0:
+                # plot 3 polynomial functions
+                for y in polynomials:
+                    ax[i][j].plot(x, y['array'], label=y['label']) 
+            else:
+                # plot 3 exponential functions
+                for y in exponentials:
+                    ax[i][j].plot(x, y['array'], label=y['label'])
+                    
+            if j == 0:
+                # both axes scale are linear
+                ax[i][j].set_title('both axes scales are linear')  
+                ax[i][j].set_xscale('linear')
+                ax[i][j].set_xlabel('linear scale')
+                ax[i][j].set_xscale('linear')
+                ax[i][j].set_xlabel('linear scale')
+            elif j == 1:
+                ax[i][j].set_title('xaxis scale is linear, yaxis scale is log')
+                # xaxis scale is linear
+                ax[i][j].set_xscale('linear')
+                ax[i][j].set_xlabel('linear scale')
+                # yaxis scale is log
+                ax[i][j].set_yscale('log')
+                ax[i][j].set_ylabel('log scale')
+            else:
+                # both axes scale are log
+                ax[i][j].set_title('both axes scales are log')
+                # xaxis scale is log
+                ax[i][j].set_xscale('log')
+                ax[i][j].set_xlabel('log scale')
+                # yaxis scale is log
+                ax[i][j].set_yscale('log')
+                ax[i][j].set_ylabel('log scale')
+                
+            ax[i][j].legend()
+    fig.savefig('set_yscale_log_example1_2x2.svg')
+    plt.tight_layout()
     plt.show()
-
-def set_yscale_log_example_polynomial2():
-    fig = plt.figure()
-    ax = fig.subplots()
-    x = np.arange(0.1, 10, 0.05)
-    ylist = []
-    ylist.append({'array':x, 'label': 'y=x' }) 
-    ylist.append({'array': x * x, 'label': 'y=x*x'})
-    ylist.append({'array': x ** 3, 'label': 'y=x*x*x'})
-    
-    for y in ylist:
-        ax.plot(x, y['array'], label=y['label'])
-        
-    ax.set_title('both axes scale are log')
-
-    ax.set_xscale('log')
-    ax.set_xlabel('log scale')
-    ax.set_yscale('log')
-    ax.set_ylabel('log scale')
-
-    ax.legend()    
-    fig.savefig('set_yscale_log_example_p2.svg')
-    plt.show()
-
-def set_yscale_log_example_exponential1():
-    fig = plt.figure()
-    ax = fig.subplots()
-    x = np.arange(0.1, 10, 0.05)
-    ylist = []
-    ylist.append({'array': np.exp2(x), 'label': 'y=2^x' })
-    ylist.append({'array': np.exp(x), 'label': 'y=e^x'})
-    
-    for y in ylist:
-        ax.plot(x, y['array'], label=y['label'])
-    
-    ax.set_title('xaxis scale is linear, yaxis scale is log')
-
-    ax.set_xscale('linear')
-    ax.set_xlabel('linear scale')
-    ax.set_yscale('log')
-    ax.set_ylabel('log scale')
-        
-    ax.legend()    
-    fig.savefig('set_yscale_log_example_e1.svg')
-    plt.show()
-
-def set_yscale_log_example_exponential2():
-    fig = plt.figure()
-    ax = fig.subplots()
-    x = np.arange(0.1, 10, 0.05)
-    ylist = []
-    ylist.append({'array': np.exp2(x), 'label': 'y=2^x' })
-    ylist.append({'array': np.exp(x), 'label': 'y=e^x'})
-    
-    for y in ylist:
-        ax.plot(x, y['array'], label=y['label'])
-    
-    ax.set_title('both axes scale are log')
-
-    ax.set_xscale('log')
-    ax.set_xlabel('log scale')
-    ax.set_yscale('log')
-    ax.set_ylabel('log scale')
-        
-    ax.legend()   
-    fig.savefig('set_yscale_log_example_e2.svg')
-    plt.show()
-    
+      
 if __name__ == '__main__':
-    set_yscale_log_example_polynomial1()
-    set_yscale_log_example_polynomial2()
-    set_yscale_log_example_exponential1()
-    set_yscale_log_example_exponential2()
-    
-    
+    set_yscale_log_example()
