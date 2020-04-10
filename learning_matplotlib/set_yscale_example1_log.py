@@ -6,8 +6,8 @@ import numpy as np
 def set_yscale_log_example():
     nrow = 2
     ncol = 3
-    width = 15
-    height = 10
+    width = 18
+    height = 12
     fig = plt.figure(figsize=(width, height))
     ax = fig.subplots(nrow, ncol)
     x = np.arange(0.1, 10, 0.05)
@@ -37,11 +37,13 @@ def set_yscale_log_example():
                     
             if j == 0:
                 # both axes scale are linear
-                ax[i][j].set_title('both axes scales are linear')  
+                ax[i][j].set_title('both axes scales are linear') 
+                # xaxis scale is linear
                 ax[i][j].set_xscale('linear')
                 ax[i][j].set_xlabel('linear scale')
-                ax[i][j].set_xscale('linear')
-                ax[i][j].set_xlabel('linear scale')
+                # xaxis scale is linear
+                ax[i][j].set_yscale('linear')
+                ax[i][j].set_ylabel('linear scale')
             elif j == 1:
                 ax[i][j].set_title('xaxis scale is linear, yaxis scale is log')
                 # xaxis scale is linear
