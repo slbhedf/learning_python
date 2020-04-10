@@ -6,8 +6,8 @@ import numpy as np
 def set_yscale_log_example():
     nrow = 2
     ncol = 3
-    width = 12
-    height = 8
+    width = 15
+    height = 10
     fig = plt.figure(figsize=(width, height))
     ax = fig.subplots(nrow, ncol)
     x = np.arange(0.1, 10, 0.05)
