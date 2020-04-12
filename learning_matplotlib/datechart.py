@@ -7,14 +7,14 @@ import numpy as np
 import os
 
 class DateChart(object):
-    def __init__(self, startdate, enddate):
+    def __init__(self, firstdate, enddate):
         self.fig = plt.figure(figsize=(15,15))
         self.ax = self.fig.subplots()
-        self.set_startdate(startdate)
+        self.set_firstdate(firstdate)
         self.set_enddate(enddate)
         
-    def set_startdate(self, d):
-        self.startdate = d
+    def set_firstdate(self, d):
+        self.firstdate = d
         
     def set_enddate(self, d):
         self.enddate = d
@@ -25,7 +25,7 @@ class DateChart(object):
         xmajor_labels = []
         xminor_labels = []
         i = 0
-        d = self.startdate
+        d = self.firstdate
         while(d <= self.enddate):
             if d.weekday() == 6:
                 xmajor_ticks.append(i)
@@ -45,7 +45,7 @@ class DateChart(object):
             tick.label.set_fontsize(20) 
 
     def dates_to_x(self, dates):
-        dt = dates[0] - self.startdate
+        dt = dates[0] - self.firstdate
         i = dt.days
         x = np.arange(i, len(dates)+i)
         return x
@@ -72,11 +72,10 @@ class DateChart(object):
         self.ax.set_yticklabels(ymajor_labels, minor=False)
         self.ax.set_yticklabels(yminor_labels, minor=True)    
 
-
-if __name__ == '__main__':
-    yesterday = datetime.today() - timedelta(days=1)
-    startdate = datetime(2020,1,10)
-    chart = DateChart(startdate, yesterday)
+def covid19_worlddatechart():
+    firstdate = datetime(2020,1,10)
+    enddate = datetime.today() - timedelta(days=1)
+    chart = DateChart(firstdate, enddate)
     chart.set_datelabels()
     chart.ax.set_yscale('log')
     chart.ax.set_ylabel('total deaths', fontsize='25')
@@ -86,7 +85,7 @@ if __name__ == '__main__':
         tick.label.set_fontsize(12) 
 
     df_all = pd.read_csv('full_data.csv', parse_dates=['date'])
-    df_all = df_all.loc[lambda df: df['date'] <= yesterday,:]
+    df_all = df_all.loc[lambda df: df['date'] <= enddate,:]
     
     countries = ['Italy', 'Spain','United Kingdom', 'Germany', 'France', 'United States', 'China', 'Iran']
     #countries = ['Italy', 'Spain','United Kingdom', 'Germany', 'France', 'United States', 'China', 'Japan', 'Iran', 'Netherlands', 'Belgium']
@@ -117,3 +116,10 @@ if __name__ == '__main__':
     plt.tight_layout()
     plt.show()
     chart.fig.savefig('svg/deaths_caused_by_coronavirus.svg')    
+
+def covid19_japanese_pref_datechart():
+    pass
+
+if __name__ == '__main__':
+    covid19_worlddatechart()
+    
