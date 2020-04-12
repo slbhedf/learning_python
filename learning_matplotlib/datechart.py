@@ -3,6 +3,7 @@
 import pandas as pd
 from datetime import timedelta, datetime
 import matplotlib.pyplot as plt
+import numpy as np
 import os
 
 class DateChart(object):
@@ -39,14 +40,10 @@ class DateChart(object):
         for tick in self.ax.xaxis.get_major_ticks():
             tick.label.set_fontsize(20) 
 
-    def dates_to_ints(self, dates):
-        i = (dates[0] - self.startdate).days
-        x = []
-        d = dates[0]
-        while(d <= dates[-1]):
-            x.append(i)
-            i += 1
-            d += timedelta(days=1)
+    def dates_to_x(self, dates):
+        deltatime = dates[0] - self.startdate
+        i = deltatime.days
+        x = np.arange(i, len(dates)+i)
         return x
     
     def set_logscale_yticks(self, maxnum=20000):
@@ -77,19 +74,21 @@ class DateChart(object):
 
 
 if __name__ == '__main__':
+    yesterday = datetime.today() - timedelta(days=1)
+    startdate = datetime(2020,1,10)
     chart = DateChart()
-    chart.set_startdate(datetime(2020,1,10))
-    chart.set_enddate(datetime(2020,4,10))
+    chart.set_startdate(startdate)
+    chart.set_enddate(yesterday)
     chart.set_datelabels()
     chart.ax.set_yscale('log')
     chart.ax.set_ylabel('total deaths', fontsize='25')
     chart.set_logscale_yticks()
-    chart.ax.set_ylim(0.90, 20000)
+    chart.ax.set_ylim(0.90, 50000)
     for tick in chart.ax.yaxis.get_major_ticks():
         tick.label.set_fontsize(12) 
 
     df_all = pd.read_csv('full_data.csv', parse_dates=['date'])
-    df_all = df_all.loc[lambda df: df['date'] <= datetime(2020,4,10),:]
+    df_all = df_all.loc[lambda df: df['date'] <= yesterday,:]
     
     countries = ['Italy', 'Spain','United Kingdom', 'Germany', 'France', 'United States', 'China', 'Iran']
     #countries = ['Italy', 'Spain','United Kingdom', 'Germany', 'France', 'United States', 'China', 'Japan', 'Iran', 'Netherlands', 'Belgium']
@@ -106,7 +105,7 @@ if __name__ == '__main__':
     for country in df_dict.keys():
         df = df_dict[country]
         df = df.loc[lambda df: df['total_deaths'] > 0, :]
-        x = chart.dates_to_ints(list(df['date']))
+        x = chart.dates_to_x(list(df['date']))
         y = list(df['total_deaths'])
         chart.ax.plot(x, y, markerdict[country], label=country)
     
