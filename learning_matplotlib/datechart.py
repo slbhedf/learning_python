@@ -7,9 +7,11 @@ import numpy as np
 import os
 
 class DateChart(object):
-    def __init__(self):
+    def __init__(self, startdate, enddate):
         self.fig = plt.figure(figsize=(15,15))
         self.ax = self.fig.subplots()
+        self.set_startdate(startdate)
+        self.set_enddate(enddate)
         
     def set_startdate(self, d):
         self.startdate = d
@@ -43,8 +45,8 @@ class DateChart(object):
             tick.label.set_fontsize(20) 
 
     def dates_to_x(self, dates):
-        deltatime = dates[0] - self.startdate
-        i = deltatime.days
+        dt = dates[0] - self.startdate
+        i = dt.days
         x = np.arange(i, len(dates)+i)
         return x
     
@@ -67,17 +69,14 @@ class DateChart(object):
         yminor_labels = list(map(lambda i: "{:,d}".format(i), yminor_ticks))
         self.ax.set_yticks(ticks=ymajor_ticks, minor=False)
         self.ax.set_yticks(ticks=yminor_ticks, minor=True)
-        self.ax.set_yticklabels(ymajor_labels)
+        self.ax.set_yticklabels(ymajor_labels, minor=False)
         self.ax.set_yticklabels(yminor_labels, minor=True)    
-
 
 
 if __name__ == '__main__':
     yesterday = datetime.today() - timedelta(days=1)
     startdate = datetime(2020,1,10)
-    chart = DateChart()
-    chart.set_startdate(startdate)
-    chart.set_enddate(yesterday)
+    chart = DateChart(startdate, yesterday)
     chart.set_datelabels()
     chart.ax.set_yscale('log')
     chart.ax.set_ylabel('total deaths', fontsize='25')
@@ -116,4 +115,5 @@ if __name__ == '__main__':
         print("directory already exists")
         
     plt.tight_layout()
+    plt.show()
     chart.fig.savefig('svg/deaths_caused_by_coronavirus.svg')    
