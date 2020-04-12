@@ -21,6 +21,7 @@ class DateChart(object):
         xmajor_ticks = []
         xminor_ticks = []
         xmajor_labels = []
+        xminor_labels = []
         i = 0
         d = self.startdate
         while(d <= self.enddate):
@@ -29,11 +30,12 @@ class DateChart(object):
                 xmajor_labels.append(d.strftime("%b %d"))
             else:
                 xminor_ticks.append(i)
+                xminor_labels.append(d.strftime("%b %d"))
             d = d + timedelta(days=1)
             i += 1
         self.ax.set_xticks(xmajor_ticks, minor=False)
         self.ax.set_xticks(xminor_ticks, minor=True)
-        self.ax.set_xticklabels(xmajor_labels)
+        self.ax.set_xticklabels(xmajor_labels, minor=False)
         self.ax.grid(True, which='both')
         self.ax.tick_params(which='major', length=10)
         plt.xticks(rotation=70)
@@ -46,16 +48,13 @@ class DateChart(object):
         x = np.arange(i, len(dates)+i)
         return x
     
-    def set_logscale_yticks(self, maxnum=20000):
+    def set_logscale_yticks(self, maxdigits=5):
         k = 0
         ymajor_ticks = []
         yminor_ticks = []
-        while(True):
+        while(k < maxdigits):
             i = 10 ** k
             j = 1
-            num = i*j
-            if num >= maxnum:
-                    break
             while(j <= 9):
                 num = i*j
                 if j == 1:
@@ -83,7 +82,7 @@ if __name__ == '__main__':
     chart.ax.set_yscale('log')
     chart.ax.set_ylabel('total deaths', fontsize='25')
     chart.set_logscale_yticks()
-    chart.ax.set_ylim(0.90, 50000)
+    chart.ax.set_ylim(0.90, 30000)
     for tick in chart.ax.yaxis.get_major_ticks():
         tick.label.set_fontsize(12) 
 
