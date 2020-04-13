@@ -143,6 +143,7 @@ def covid19_japanese_pref_datechart():
     prefs = sorted(list(set(df[preflabel])))
     
     cases_dict = {}
+    totalcases_dict = {}
     for i in df.index:
         prefname = df[preflabel][i] 
         d = df[datelabel][i] # Timestamp 
@@ -154,7 +155,8 @@ def covid19_japanese_pref_datechart():
         else:
             cases_dict[prefname] = {d: 1}
     
-    chart = DateChart(firstdate, lastdate)        
+    chart = DateChart(firstdate, lastdate)
+    latest = {}        
     for prefname in prefs:
         d = list(cases_dict[prefname].keys())[0]
         dates = []
@@ -164,9 +166,20 @@ def covid19_japanese_pref_datechart():
             totalcase += cases_dict[prefname].get(d, 0)
             y.append(totalcase)
             dates.append(d)
-            d += timedelta(days=1)            
+            d += timedelta(days=1)
+        totalcases_dict[prefname] = {'y': y.copy(), 'dates': dates.copy()}
+        latest[prefname] = totalcase
+        
+    latest = {k: v for k, v in sorted(latest.items(), key=lambda item: item[1], reverse=True)}
+    keyslist = list(latest.keys())
+    top10 = keyslist[:10]
+    print(top10)
+    
+    for prefname in top10:
+        dates = totalcases_dict[prefname]['dates']
         x = chart.dates_to_x(dates)
-        chart.ax.plot(x, y, '-',label=prefname)
+        y = totalcases_dict[prefname]['y']
+        chart.ax.plot(x, y, 'x-',label=prefname)
     
     chart.set_datelabels()
     chart.set_logscale_yticks(maxdigits=4)
@@ -179,7 +192,7 @@ def covid19_japanese_pref_datechart():
         
     plt.tight_layout()
     plt.show()
-    chart.fig.savefig('confirmed_cases_by_prefectures.svg')
+    chart.fig.savefig('svg/confirmed_cases_by_prefectures.svg')
     
     
 if __name__ == '__main__':
